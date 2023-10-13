@@ -21,6 +21,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.example.android.unscramble.R
 import com.example.android.unscramble.databinding.GameFragmentBinding
 
@@ -32,6 +33,17 @@ class GameFragment : Fragment() {
     private var score = 0
     private var currentWordCount = 0
     private var currentScrambledWord = "test"
+    // by viewModels() - kotlin property delegate
+    /**
+     * Property delegation in Kotlin helps you to handoff the getter and setter responsibility
+     * to a different class. This class called the delegate class provides getter and setter
+     * functions of the property and handles its changes.
+     * A delegate property is defined using the `by` clause and a delegate class instance:
+     *
+     * var <property-name> : <property-type> by <delegate-class>()
+     *
+     * */
+    private val viewModel: GameViewModel by viewModels()
 
 
     // Binding object instance with access to the views in the game_fragment.xml layout
