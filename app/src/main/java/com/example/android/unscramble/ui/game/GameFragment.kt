@@ -74,6 +74,15 @@ class GameFragment : Fragment() {
         binding.score.text = getString(R.string.score, 0)
         binding.wordCount.text = getString(
                 R.string.word_count, 0, MAX_NO_OF_WORDS)
+
+        // viewLifeCycleOwner represent the Fragment's view lifecycle. This parameter helps the
+        // `LiveData` to be aware of the GameFragment lifecycle and notify the observer only when the
+        // GameFragment is in active states(STARTED or RESUMED)
+
+        viewModel.currentScrambledWord.observe(viewLifecycleOwner,
+            {newWord ->
+                binding.textViewUnscrambledWord.text = newWord
+            })
     }
 
     /*
@@ -82,10 +91,10 @@ class GameFragment : Fragment() {
     */
     private fun onSubmitWord() {
         val playerWord = binding.textInputEditText.text.toString()
+
         if(viewModel.isUserWordCorrect(playerWord)){
             setErrorTextField(false)
-            if(viewModel.nextWord()){
-            } else {
+            if(!viewModel.nextWord()){
                 showFinalScoreDialog()
             }
         } else{
