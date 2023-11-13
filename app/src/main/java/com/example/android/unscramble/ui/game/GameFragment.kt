@@ -17,6 +17,7 @@
 package com.example.android.unscramble.ui.game
 
 import android.os.Bundle
+import android.provider.Contacts
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -57,9 +58,9 @@ class GameFragment : Fragment() {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout XML file and return a binding object instance
+//         Inflate the layout XML file and return a binding object instance
 //        binding = GameFragmentBinding.inflate(inflater, container, false)
-        // changing to data binding
+//         changing to data binding
         binding = DataBindingUtil.inflate(inflater, R.layout.game_fragment, container, false)
         Log.d("GameFragment", "GameFragment created/recreated")
         Log.d("GameFragment", "Word: ${viewModel.currentScrambledWord} " +
@@ -69,12 +70,19 @@ class GameFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+//      initializing layout variables
+        binding.gameViewModel = viewModel
+        binding.maxNoOfWords = MAX_NO_OF_WORDS
 
-        // Setup a click listener for the Submit and Skip buttons.
+        // specify the fragment view as the lifecycle owner of the binding
+        // This is used so that the binding can observe LiveData updated
+        binding.lifecycleOwner = viewLifecycleOwner
+
+//         Setup a click listener for the Submit and Skip buttons.
         binding.submit.setOnClickListener { onSubmitWord() }
         binding.skip.setOnClickListener { onSkipWord() }
-        // Update the UI
-        // removed after attaching live data
+//         Update the Contacts.Intents.UI
+//         removed after attaching live data
 //        binding.score.text = getString(R.string.score, 0)
 //        binding.wordCount.text = getString(
 //                R.string.word_count, 0, MAX_NO_OF_WORDS)
