@@ -87,14 +87,21 @@ class GameFragment : Fragment() {
 //        binding.wordCount.text = getString(
 //                R.string.word_count, 0, MAX_NO_OF_WORDS)
 
+
+        // after adding binding expression in layout, the below `observer` is not required anymore
+        // as the layout recieves the updates of the changes to the LiveData directly
+
         // viewLifeCycleOwner represent the Fragment's view lifecycle. This parameter helps the
         // `LiveData` to be aware of the GameFragment lifecycle and notify the observer only when the
         // GameFragment is in active states(STARTED or RESUMED)
 
-        viewModel.currentScrambledWord.observe(viewLifecycleOwner
-        ) { newWord ->
-            binding.textViewUnscrambledWord.text = newWord
-        }
+//        viewModel.currentScrambledWord.observe(viewLifecycleOwner
+//        ) { newWord ->
+//            binding.textViewUnscrambledWord.text = newWord
+//        }
+
+
+
         viewModel.score.observe(viewLifecycleOwner
         ) { newScore ->
             binding.score.text = getString(R.string.score, newScore)
